@@ -7,12 +7,14 @@ PODS:
   - Realm/Headers (5.3.4)
   - RealmSwift (5.3.4):
     - Realm (= 5.3.4)
+  - RxSwift (5.1.1)
 
 DEPENDENCIES:
   - Alamofire (~> 5.0)
   - IQKeyboardManagerSwift
   - MBProgressHUD (~> 1.2.0)
   - RealmSwift
+  - RxSwift
 
 SPEC REPOS:
   trunk:
@@ -21,6 +23,7 @@ SPEC REPOS:
     - MBProgressHUD
     - Realm
     - RealmSwift
+    - RxSwift
 
 SPEC CHECKSUMS:
   Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
@@ -28,7 +31,8 @@ SPEC CHECKSUMS:
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   Realm: 4dd457b6ed025041cf7efe05dae78c027ba842e0
   RealmSwift: 233af88fffe05ed7f9305eecef100d477c0c2c42
+  RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
 
-PODFILE CHECKSUM: b014126398cd27754993f6668e5e899e1e6f9342
+PODFILE CHECKSUM: 74bfe6f77abf132d50efafa7eae5599aef0894c3
 
 COCOAPODS: 1.8.4

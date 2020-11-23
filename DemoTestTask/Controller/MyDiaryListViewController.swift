@@ -9,7 +9,7 @@
 import UIKit
 import MBProgressHUD
 import RealmSwift
-
+import RxSwift
 class MyDiaryListViewController: UIViewController {
     
     //MARK:-  Variable & Outlets Declaration
@@ -17,6 +17,8 @@ class MyDiaryListViewController: UIViewController {
     var arrDiarylist: Results<Diary>!
     private var dictData: [String: [Diary]] = [:]
     private var arrKeys = [String]()
+    private(set) var disposeBag: DisposeBag = DisposeBag()
+
     let realm = try! Realm()
     @IBOutlet weak var tblDiaryList: UITableView!
     override func viewDidLoad() {
@@ -47,25 +49,67 @@ class MyDiaryListViewController: UIViewController {
     }
     
     
+//    //MARK:- Api Call For Get Diary List
+//    func ApiCallForGetDiaryList() {
+//        HUD.show(animated: true)
+//        if Reachability.isConnectedToNetwork() {
+//            ApiManager.sharedManager.requsetForGet(urlQuery: KDiaryList) { (response, error, status) in
+//                if error == nil, let dictResponse = response as? NSArray {
+//                    self.HUD.hide(animated: true)
+//                    self.saveDatainRealm(dataArray: dictResponse)
+//                    self.tblDiaryList.reloadData()
+//                } else {
+//                    self.HUD.hide(animated: true)
+//                    CustomAlertController.show(kError)
+//                }
+//            }
+//        }else {
+//            HUD.hide(animated: true)
+//            CustomAlertController.showtitleMessage(title: kErrorNetwork, message: kNoInternet)
+//        }
+//    }
+    
+    
+    
     //MARK:- Api Call For Get Diary List
     func ApiCallForGetDiaryList() {
         HUD.show(animated: true)
         if Reachability.isConnectedToNetwork() {
-            ApiManager.sharedManager.requsetForGet(urlQuery: KDiaryList) { (response, error, status) in
-                if error == nil, let dictResponse = response as? NSArray {
-                    self.HUD.hide(animated: true)
-                    self.saveDatainRealm(dataArray: dictResponse)
-                    self.tblDiaryList.reloadData()
-                } else {
-                    self.HUD.hide(animated: true)
-                    CustomAlertController.show(kError)
+            ApiManager.sharedManager.requsetForGet(urlQuery: KDiaryList).subscribe({ [weak self] response in
+                
+                guard let self = self else {
+                    return
                 }
-            }
-        }else {
+                switch response {
+                case let .next((response, error, status)):
+                    print(status)
+                    
+                    if error == nil, let dictResponse = response as? NSArray {
+                        self.HUD.hide(animated: true)
+                        self.saveDatainRealm(dataArray: dictResponse)
+                        self.tblDiaryList.reloadData()
+                    } else {
+                        self.HUD.hide(animated: true)
+                        CustomAlertController.show(kError)
+                    }
+                    break
+                // data
+                case let .error(error):
+                    print(error)
+                    self.HUD.hide(animated: true)
+                    break
+                // error
+                case .completed:
+                    break
+                }
+            }).disposed(by: disposeBag)
+        }
+        else {
             HUD.hide(animated: true)
             CustomAlertController.showtitleMessage(title: kErrorNetwork, message: kNoInternet)
         }
     }
+    
     
     //MARK:-  Save Data in Realm
     func saveDatainRealm(dataArray:NSArray) {

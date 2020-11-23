@@ -11,7 +11,7 @@ import UIKit
 import Foundation
 import Alamofire
 import SystemConfiguration
-
+import RxSwift
 
 public class Reachability {
     static func isConnectedToNetwork() -> Bool {
@@ -50,10 +50,24 @@ class ApiManager: NSRestApiHelper {
         return Singleton.instance
     }
     
-    func requsetForGet(urlQuery: String, CompletionHandler completion: @escaping CompletionHandler) {
-        serviceURL = urlQuery
-        getRequest() { (response, error, status) in
-            completion(response, error, status)
+    //    func requsetForGet(urlQuery: String, CompletionHandler completion: @escaping CompletionHandler) {
+    //        serviceURL = urlQuery
+    //        getRequest() { (response, error, status) in
+    //            completion(response, error, status)
+    //        }
+    //    }
+    
+    
+    
+    func requsetForGet(urlQuery: String) -> Observable<(AnyObject?,Error?,Int)> {
+        return Observable.create { (observer) -> Disposable in
+            self.serviceURL = urlQuery
+            self.getRequest() { (response, error, status) in
+                //completion(response, error, status)
+                observer.onNext((response,error,status))
+                observer.onCompleted()
+            }
+            return Disposables.create()
         }
     }
 }

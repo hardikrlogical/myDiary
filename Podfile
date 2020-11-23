@@ -10,6 +10,8 @@ target 'DemoTestTask' do
   pod 'RealmSwift'
   pod 'MBProgressHUD', '~> 1.2.0'
   pod 'IQKeyboardManagerSwift'
+  pod 'RxSwift'
+
   target 'DemoTestTaskTests' do
     inherit! :search_paths
     # Pods for testing

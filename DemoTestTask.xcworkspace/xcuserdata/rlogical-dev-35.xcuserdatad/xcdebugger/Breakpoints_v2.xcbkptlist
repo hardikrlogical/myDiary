@@ -14,8 +14,8 @@
             filePath = "DemoTestTask/Controller/MyDiaryListViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "196"
-            endingLineNumber = "196"
+            startingLineNumber = "240"
+            endingLineNumber = "240"
             landmarkName = "deleteButtonTapped(_:)"
             landmarkType = "7">
          </BreakpointContent>

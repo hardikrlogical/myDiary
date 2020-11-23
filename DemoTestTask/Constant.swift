@@ -27,8 +27,10 @@ let kErrorNetwork                       = "Network error"
 let kMainUrl                           = "https://private-ba0842-gary23.apiary-mock.com/"
 
 let KDiaryList                         = "notes"
-
-
+let kError                             = "Error from Api"
+let kDiaryTitle                        = "Please enter Diary Title"
+let kDiaryContent                      = "Please enter Content"
+let kUpdateDiary                       = "Update diary successfully"
 // MARK:- Device Type Constants
 struct ScreenSize {
     static let ScreenWidth = UIScreen.main.bounds.size.width

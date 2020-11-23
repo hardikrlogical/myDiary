@@ -32,16 +32,16 @@ class DiaryDetailViewController: UIViewController {
    //MARK:-  Save Button Tapped
     @IBAction func btnSaveTap(_ sender: Any) {
         if txtDiaryTitle.text.count == 0 {
-            CustomAlertController.show("Please enter Title")
+            CustomAlertController.show(kDiaryTitle)
         } else if txtDiaryDetail.text.count == 0 {
-            CustomAlertController.show("Please enter Content")
+            CustomAlertController.show(kDiaryContent)
         } else {
             try! realm.write {
                 arrdata.title = txtDiaryTitle.text!
                 arrdata.content = txtDiaryDetail.text!
                 realm.add(arrdata, update: .modified)
             }
-            CustomAlertController.showtitleMessage(title: kProjectName, message: "Update diary successfully") { (true) in
+            CustomAlertController.showtitleMessage(title: kProjectName, message: kUpdateDiary) { (true) in
                 self.navigationController?.popViewController(animated: true)
             }
         }

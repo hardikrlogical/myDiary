@@ -58,7 +58,7 @@ class MyDiaryListViewController: UIViewController {
                     self.tblDiaryList.reloadData()
                 } else {
                     self.HUD.hide(animated: true)
-                    CustomAlertController.show("Error from Api")
+                    CustomAlertController.show(kError)
                 }
             }
         }else {
